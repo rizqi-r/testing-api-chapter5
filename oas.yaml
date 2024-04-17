@@ -1,0 +1,294 @@
+openapi: 3.0.1
+info:
+  title: Movies API
+  version: 1.0.0
+  description: Dummy API
+  contact:
+    email: rizqi.r@gmail.com
+servers:
+  - url: http://localhost:3000/v1
+paths:
+  /movies:
+    get:
+      summary: GET All movies
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 200
+                  message:
+                    type: string
+                    example: Created
+                  rows:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                        name:
+                          type: string
+                        director:
+                          type: string
+                        release_year:
+                          type: number
+                        is_available:
+                          type: boolean
+                      example:
+                        - id: 1
+                          title: Eternal Sunshine of the Spotless Mind
+                          director: Michel Gondry
+                          release_year: 2004
+                          is_available: true
+                        - id: 2
+                          title: Breaking Bad
+                          director: Vince Gilligan
+                          release_year: 2008
+                          is_available: true
+    post:
+      summary: Create movies Data
+      description: mendaftarkan movies baru kedalam system
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Breaking Bad
+                director:
+                  type: string
+                  example: Vince Gilligan
+                release_year:
+                  type: number
+                  example: 2008
+                is_available:
+                  type: boolean
+                  example: true
+      responses:
+        201:
+          description: "Created"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 201
+                  message:
+                    type: string
+                    example: Created
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 400
+                  message:
+                    type: string
+                    example: Bad Request
+  /movies/{id}:
+    get:
+      parameters:
+        - schema:
+            type: string
+            example: 1
+          name: id
+          in: path
+          required: true
+      summary: GET Specific movies
+      description: melihat detail movies
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 200
+                  message:
+                    type: string
+                    example: OK
+                  rows:
+                    type: object
+                    properties:
+                      title:
+                        type: string
+                        example: Eternal Sunshine of the Spotless Mind
+                      director:
+                        type: string
+                        example: Michel Gondry
+                      release_year:
+                        type: number
+                        example: 2004
+                      is_available:
+                        type: boolean
+                        example: true
+        404:
+          description: "Not Found"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 404
+                  message:
+                    type: string
+                    example: Not Found
+        500:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 500
+                  message:
+                    type: string
+                    example: Error
+    put:
+      parameters:
+        - schema:
+            type: string
+            example: 1
+          name: id
+          in: path
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Breaking Bad
+                director:
+                  type: string
+                  example: Vince Gilligan
+                release_year:
+                  type: number
+                  example: 2008
+                is_available:
+                  type: boolean
+                  example: true
+
+      summary: Edit Specific movies
+      description: mengedit detail movies
+      responses:
+        201:
+          description: "Created"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 201
+                  message:
+                    type: string
+                    example: Data Berhasil Diupdate
+                  rows:
+                    type: object
+                    properties:
+                      title:
+                        type: string
+                        example: Breaking Bad
+                      director:
+                        type: string
+                        example: Vince Gilligan
+                      release_year:
+                        type: number
+                        example: 2008
+                      is_available:
+                        type: boolean
+                        example: true
+        404:
+          description: "Not Found"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 404
+                  message:
+                    type: string
+                    example: Not Found
+        500:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 500
+                  message:
+                    type: string
+                    example: Error
+    delete:
+      summary: Delete Specific movies
+      description: menghapus movies
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 200
+                  message:
+                    type: string
+                    example: Data Berhasil Dihapus
+        404:
+          description: "Not Found"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 404
+                  message:
+                    type: string
+                    example: Not Found
+        500:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 500
+                  message:
+                    type: string
+                    example: Error
