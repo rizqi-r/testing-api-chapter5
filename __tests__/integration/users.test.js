@@ -82,6 +82,8 @@ describe("test POST /v1/login endpoint", () => {
     // let name = "testlogin";
     let email = "testlogin@gmail.com";
     let password = "123";
+    let invalidemail = "invalidemail@gmail.com";
+    let invalidpassword = "abc";
 
     test("test login sukses -> success", async () => {
         try {
@@ -103,21 +105,24 @@ describe("test POST /v1/login endpoint", () => {
         }
     });
 
-    // test("test email tidak terdaftar -> error", async () => {
-    //     try {
-    //         let { statusCode, body } = await request(app).post(`/v1/login`).send({ email, password });
-    //         expect(statusCode).toBe(400);
-    //     } catch (err) {
-    //         expect(err).toBe("email tidak terdaftar");
-    //     }
-    // });
+    test("test email tidak terdaftar -> error", async () => {
+        try {
+            let { statusCode, body } = await request(app).post(`/v1/login`).send({ invalidemail, invalidpassword });
+            expect(statusCode).toBe(400);
+            console.log(body);
+            expect(body.data).toBe("email tidak terdaftar");
+        } catch (err) {
+            expect(err).toBe("email tidak terdaftar");
+        }
+    });
 
-    // test("test password salah -> error", async () => {
-    //     try {
-    //         let { statusCode, body } = await request(app).post(`/v1/login`).send({ email, password });
-    //         expect(statusCode).toBe(400);
-    //     } catch (err) {
-    //         expect(err).toBe("password salah");
-    //     }
-    // });
+    test("test password salah -> error", async () => {
+        try {
+            let { statusCode, body } = await request(app).post(`/v1/login`).send({ email, invalidpassword });
+            expect(statusCode).toBe(400);
+            expect(body.data).toBe("password salah");
+        } catch (err) {
+            expect(err).toBe("password salah");
+        }
+    });
 });

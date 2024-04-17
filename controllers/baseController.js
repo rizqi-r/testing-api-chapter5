@@ -23,9 +23,9 @@ const createUserData = async (req, res, next) => {
             });
         } catch (err) {
             return res.status(400).json({
-                status: false,
-                message: err,
-                data: null
+                status: 400,
+                message: "Bad Request",
+                data: err
             });
         }
     } catch (err) {
@@ -45,9 +45,9 @@ const getSpecificUser = async (req, res, next) => {
             });
         } catch (err) {
             return res.status(400).json({
-                status: false,
-                message: err,
-                data: null
+                status: 400,
+                message: "Bad Request",
+                data: err
             });
         }
     } catch (err) {
@@ -67,9 +67,9 @@ const login = async (req, res, next) => {
             });
         } catch (err) {
             return res.status(400).json({
-                status: false,
-                message: err,
-                data: null
+                status: 400,
+                message: "Bad Request",
+                data: err
             });
         }
     } catch (err) {
